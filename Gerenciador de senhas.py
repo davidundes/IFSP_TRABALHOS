@@ -3,7 +3,7 @@
 def menu():
     while True:
         print("Digite o número da área que deseja acessar: ")
-        selecao = int(input("(1)novo arquivo \t (2)ver serviços \t (3)atualizar arquivo \t(4)buscar arquivo (5)excluir arquivo (6)sair"))
+        selecao = int(input("(1)novo arquivo \t (2)ver serviços \t (3)atualizar arquivo \t(4)buscar arquivo (5)excluir arquivo (6)sair "))
 
         match(selecao):
             case 1:
@@ -49,24 +49,27 @@ def verServico():
 
 def novoServico():
     arquivo = open("servicos.txt", mode="r+")
+    linhas = arquivo.readlines()
 
     while True:
-        novo = {"nome": input("Digite o nome do arquivo"),"login": input("Digite o login"),"senha": input("Digite a senha")}
+        novo = {"nome": input("Digite o nome do arquivo"),"login": input("Digite o login"),"senha": input("Digite a senha ")}
         print(novo)
-        while True:
-            certeza = input("A senha foi digitada corretamente? (S ou N )").upper()
-            if certeza != "S" and certeza != "N":
-                print("Você digitou um valor invalido")
-                pass
+        if  confirmacao():
             break
-        if  certeza == "S":
-            break
-    arquivo.write(f"{novo['nome']}\t{novo['login']}\t{novo['senha']}")
+    linhas.append(f"{novo["nome"]}\t{novo["login"]}\t{novo["senha"]}")
+
+    arquivo.seek(0)
+
+    for linha in linhas:
+        arquivo.write(linha + "\n")
+    arquivo.truncate
+
+    
 
 def excluirServico():
     arquivo = open("servicos.txt", mode="r+")
     servico = []
-    procurar = input("Digite o servico que deseja apagar")
+    procurar = input("Digite o servico que deseja apagar ")
 
     for linha in arquivo:
         nome = linha.split()
