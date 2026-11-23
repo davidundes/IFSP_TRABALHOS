@@ -57,7 +57,7 @@ def novoServico():
         print(novo)
         if  confirmacao():
             break
-    linha = (f"\n{novo['nome']}\t{novo['login']}\t{novo['senha']}")
+    linha = (f"{novo['nome']}\t{novo['login']}\t{novo['senha']}\n")
 
     arquivo.write(linha)
     arquivo.truncate()
@@ -109,9 +109,9 @@ def atualizarServiço():
                     print("Valor invalido")
         except:
             print('Valor inválido digitado.')
-    arquivo.write("\n")
     for i in range(3):
         arquivo.write(campos[i] + "\t")
+    arquivo.write("\n")
     arquivo.truncate()
     arquivo.close()
                   
@@ -149,7 +149,7 @@ def confirmacao():
         certeza = input("Você tem certeza? (S ou N )").upper()
         if certeza != "S" and certeza != "N":
             print("Você digitou um valor invalido")
-            pass
+            continue
         break
     if certeza == "S":
         return True
